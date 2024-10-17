@@ -488,27 +488,122 @@ Let's explore each of the "bad smells" in code, as described by Kent Beck and Ma
        ```
        Now, `UserProfile` is more focused, with contact information encapsulated in its own class.
 
-### 20. **Comments as a Deodorant**
-   - **Concept**: Comments are not inherently bad, but when they are used to explain complex or confusing code, it may indicate that the code itself should be refactored to be self-explanatory.
+       Thanks for pointing that out! Let's cover the remaining code smells after **Large Class** with examples in Swift.
+
+
+
+### 20. **Alternative Classes with Different Interfaces**
+   - **Concept**: This occurs when classes are meant to be interchangeable but have different method names or interfaces. The inconsistency makes it harder to use these classes in a consistent way.
    - **Example in Swift**:
      - **Before**:
        ```swift
-       // Calculate the discount for VIP customers
-       let discount = price * 0.2
+       class XMLParser {
+           func parseXML(data: Data) {
+               // XML parsing logic
+           }
+       }
+
+       class JSONParser {
+           func parseJSON(data: Data) {
+               // JSON parsing logic
+           }
+       }
        ```
      - **After**:
        ```swift
-       func calculateVIPDiscount(for price: Double) -> Double {
-           return price * 0.2
+       protocol DataParser {
+           func parse(data: Data)
        }
 
-       let discount = calculateVIPDiscount(for: price)
+       class XMLParser: DataParser {
+           func parse(data: Data) {
+               // XML parsing logic
+           }
+       }
+
+       class JSONParser: DataParser {
+           func parse(data: Data) {
+               // JSON parsing logic
+           }
+       }
        ```
-       The comment is no longer necessary because the function name clearly describes the logic.
+       By using a protocol, you ensure that both parsers have a consistent interface, making it easier to swap them out.
+
+### 21. **Data Class**
+   - **Concept**: A **Data Class** is a class that only has fields and getters/setters but no meaningful behavior. It often indicates that some behavior should be moved into the class itself.
+   - **Example in Swift**:
+     - **Before**:
+       ```swift
+       class User {
+           var name: String
+           var age: Int
+       }
+       
+       func printUserDetails(user: User) {
+           print("Name: \(user.name), Age: \(user.age)")
+       }
+       ```
+     - **After**:
+       ```swift
+       class User {
+           var name: String
+           var age: Int
+
+           func printDetails() {
+               print("Name: \(name), Age: \(age)")
+           }
+       }
+       ```
+       Now, the `printDetails` method is encapsulated within the `User` class, giving it some behavior instead of making it a mere data holder.
+
+### 22. **Refused Bequest**
+   - **Concept**: This occurs when a subclass inherits methods or data it doesn’t need. It might be a sign that the subclass doesn’t belong in the same hierarchy.
+   - **Example in Swift**:
+     - **Before**:
+       ```swift
+       class Animal {
+           func makeSound() {
+               // Generic sound logic
+           }
+       }
+
+       class Fish: Animal {
+           // Fish doesn't make sounds but inherits makeSound()
+       }
+       ```
+     - **After**:
+       ```swift
+       class Fish {
+           // Fish doesn't inherit unnecessary methods from Animal
+       }
+
+       class Mammal: Animal {
+           override func makeSound() {
+               // Mammals make sounds
+           }
+       }
+       ```
+       By separating `Fish` from `Animal`, you avoid unnecessary inheritance and make the class structure more logical.
+
+### 23. **Comments as a Deodorant**
+   - **Concept**: Comments should clarify why certain decisions were made, not what the code is doing. If you find yourself needing comments to explain *what* the code does, it may indicate that the code needs refactoring for clarity.
+   - **Example in Swift**:
+     - **Before**:
+       ```swift
+       // Calculate the discount for premium customers
+       let discount = price * 0.15
+       ```
+     - **After**:
+       ```swift
+       func calculatePremiumDiscount(for price: Double) -> Double {
+           return price * 0.15
+       }
+
+       let discount = calculatePremiumDiscount(for: price)
+       ```
+       The method name `calculatePremiumDiscount` makes the logic self-explanatory, reducing the need for comments.
 
 ---
 
-These examples of code smells and their corresponding refactorings help create cleaner, more maintainable, and more understandable code. By recognizing these smells, developers can continuously improve the quality of their codebase.
----
 
 These examples illustrate how to identify "bad smells" in code and how to address them through refactoring. By making changes that improve clarity, reduce duplication, and encapsulate complexity, you create a codebase that is easier to maintain, extend, and understand.
