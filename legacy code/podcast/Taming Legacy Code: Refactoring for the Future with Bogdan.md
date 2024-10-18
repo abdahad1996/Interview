@@ -15,7 +15,18 @@ Sure, let’s break down the concepts discussed with more detailed explanations 
 
    - **High Coupling and Low Cohesion**: When classes or modules are tightly bound together, changing one piece often requires changes in others.
      - *Example*: A `UserManager` class that directly accesses and modifies a global `Settings` object. Any change in `Settings` might necessitate changes across multiple classes.
+   - **Encapsulation**: code is not encapsulated 
 
+**CODE SMELLS**:
+   - DUPICATED LOGIC
+   - GLOBAL MUTABLE STATE
+   - MIXING CONCERNS
+   - LARGE CODE FILES
+   - MANY OPTIONALS (
+      - DDD -> USE COMPILER TO RERRESENT STATES THAT ARE POSSIBLE AND NOT REPRESENTING STATES THAT ARE NOT POSSIBLE, SYSTEM CANNOT BE NIL 
+      MEANS THE PROBLEM IS IN DESIGN)
+      - VC USE VIEWMODEL , IF OPTIONAL YOU HAVE 2 CASES BUT IF NOT OPTIONAL MEANS CANT INITIATE VC WITHOUT VM THAT GIVES EVERYONE THE             MESSAGE
+      - 
 ### 3. **Challenges with Legacy Code**
    - **Understanding Without Tests**: Without automated tests, it’s difficult to understand what the code is supposed to do. Developers may be unsure about making changes because they can’t verify if the behavior remains the same.
      - *Example*: If you find a bug in the user profile update logic but there are no tests, you’re left guessing what the expected behavior should be. Any fix you apply could unintentionally alter how the profile update behaves.
@@ -37,15 +48,6 @@ Sure, let’s break down the concepts discussed with more detailed explanations 
    - **Characterization Tests**: A technique where you write tests to capture the existing behavior of legacy code before changing it. This is useful when you don’t fully understand how the code should behave.
      - *Example*: Suppose you have a payment processing function. Before changing it, write a test that captures how it behaves for different input values (like various payment methods). These tests will ensure that any changes don’t break existing behavior.
 
-### 6. **Tools and Techniques for Refactoring**
-   - **IDE Support**: Modern IDEs like Xcode provide tools for safe refactoring. 
-     - *Example*: Use Xcode's "Extract Method" feature to take a block of code from a view controller and move it into a separate function, reducing the size of the original method.
-   
-   - **Extract Class/Method**: Simplifying large classes by moving related functionality into new classes.
-     - *Example*: If a view controller handles user input validation, move that logic into a separate `UserInputValidator` class. This makes both the view controller and validation logic easier to test and understand.
-
-   - **Renaming for Clarity**: Renaming variables or methods can make the code more understandable.
-     - *Example*: Renaming a vague method name like `doAction()` to `fetchUserProfile()` immediately makes the code's intention clearer.
 
 ### 7. **Mindset Shift for Developers**
    - **Accepting Legacy Code**: Viewing legacy code as an opportunity rather than a burden is critical for personal and team growth.
@@ -55,23 +57,59 @@ Sure, let’s break down the concepts discussed with more detailed explanations 
      - *Example*: During a code review, suggest that a colleague extract a large function into smaller functions, and provide guidance on how to do it. This not only improves the code but also helps your colleague learn better practices.
 
 ### 8. **Real-World Example**
+2 ios senios ios code inherited , 
+-pragmatic approach write tests after instead of doing tdd
+- more confidence
+- most important feature
+- ship it
+- qa no manual regression tests
+- covid everyone left 
+- everyone left
+- 2 junior developer
+- kept the same release cycle 
+- proves we build a operation suit
+- didn't break operations for the company as we left as infrastrucutre and automation suit were in place to make things easy for the next developer to ship and write code
+
+- snow ball effect
+- next milestone
+- step by step
+- every achievement meant a lot to us
+- it wasn't always easy the energy was great
+- we took the code didn't throw aaway we owend it and shape it to our own way
+- the experience was very good even though it wasn't the pure code 
+
    - **Scenario**: A company has a legacy iOS app with a low test coverage (e.g., 10%). The app uses massive view controllers, and changes often introduce bugs in unrelated parts of the app.
    - **Solution**: The team decides to incrementally improve test coverage by writing tests for any new feature or bug fix. They refactor view controllers by separating concerns—moving data-fetching logic to a `NetworkService` and UI updates to custom `UIView` subclasses.
    - **Result**: After a year, test coverage reaches 70%. The app's stability improves, and the team feels confident deploying new features. Even when senior developers leave, new hires can maintain the pace because the test suite serves as documentation of the app’s behavior.
 
 ### 9. **Scalability of Legacy Code**
+a scalable code base follows solid ( easy to change)
+(vertical) adding different people  
    - **Scalable Codebase**: A scalable codebase is one that can handle new features, changes, and increased complexity without becoming unmanageable.
      - *Example*: By implementing a repository pattern for data access, a legacy app can easily switch from using Core Data to Realm or SQLite in the future without changing the rest of the codebase.
    
    - **SOLID Principles**: Applying principles like Single Responsibility and Dependency Inversion can make legacy code more modular and testable.
      - *Example*: Inverting dependencies by introducing protocols allows for easier testing. A `UserService` that fetches user data can have a `UserServiceProtocol` interface, enabling the use of mock objects during testing.
 
-### 10. **Key Refactoring Strategies**
+### 6. **Key Refactoring Strategies** ###  **Tools and Techniques for Refactoring** (Strategies for refactoring)
+
+ - **IDE Support**: Modern IDEs like Xcode provide tools for safe refactoring. 
+     - *Example*: Use Xcode's "Extract Method" feature to take a block of code from a view controller and move it into a separate function, reducing the size of the original method.
+   
+   - **Extract Class/Method**: Simplifying large classes by moving related functionality into new classes.
+     - *Example*: If a view controller handles user input validation, move that logic into a separate `UserInputValidator` class. This makes both the view controller and validation logic easier to test and understand.
+
+   - **Renaming for Clarity**: Renaming variables or methods can make the code more understandable.
+     - *Example*: Renaming a vague method name like `doAction()` to `fetchUserProfile()` immediately makes the code's intention clearer.
+ 
    - **Start Small**: Focus on areas of the code that you need to modify frequently. This ensures that improvements bring immediate benefits.
      - *Example*: If a payment screen is often modified due to new payment methods, start by cleaning up that view controller before tackling other parts of the app.
    
-   - **Refactor Before Adding Features**: It’s often safer to refactor the existing code to a better structure before adding new functionality.
+   - **Refactor Before Adding Features if needed**: It’s often safer to refactor the existing code to a better structure before adding new functionality.
      - *Example*: Before adding a new payment method, refactor the payment logic into a `PaymentProcessor` class. This will make it easier to add the new method without cluttering the existing code.
+
+   - **write test**
+     - characterization test
 
    - **Use Design Patterns**: Introduce patterns like `Factory` or `Strategy` where they help reduce complexity.
      - *Example*: Use the `Strategy` pattern to manage different login methods (e.g., email login, social login) without adding more if-else logic to the view controller.
