@@ -170,10 +170,16 @@ Here, I'll break down the theory and illustrate the concepts with **Swift** exam
 
 ### Overview of Programming by Difference
 
+Programming by Difference is a technique where you extend or change the behavior of an existing class by creating a subclass, rather than modifying the class directly. This allows for new functionality without altering the original code, which can be especially useful when working with legacy systems that are difficult to change or test.
+
 The idea behind **Programming by Difference** is to use inheritance to introduce new behavior without directly modifying the existing class. This way, we maintain the original functionality while extending it for new use cases. This technique can be useful when:
 
 - We have tests for the existing class and want to ensure that modifications don't break it.
 - We want to isolate new functionality before deciding how to integrate it with the existing design.
+
+ ## When to Use:
+When you need to add new behavior but don't want to change the existing class.
+When the existing class is difficult to test, and you want to isolate new functionality for easier testing.
 
 ### Example Scenario
 
