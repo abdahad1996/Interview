@@ -1,4 +1,4 @@
-Tracking "merges to master"  per day, week, or month offers valuable insights into team dynamics, workflow efficiency, and potential collaboration bottlenecks. By observing these metrics, you can gauge how well the team adheres to principles like continuous integration and consistent, incremental work, which are often key to maintaining project momentum and meeting delivery goals.
+Tracking "merges to master" per day, week, or month offers valuable insights into team dynamics, workflow efficiency, and potential collaboration bottlenecks. By observing these metrics, you can gauge how well the team adheres to principles like continuous integration and consistent, incremental work, which are often key to maintaining project momentum and meeting delivery goals.
 
 ### Key Benefits of Tracking Merges to Master
 
