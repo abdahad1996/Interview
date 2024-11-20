@@ -169,6 +169,13 @@ I think i can divide this into 3 categories:
 
 ## 5) Could you please provide a 5-10 minute screen recording of one of your codebase, walking through explaining the technical architecture?
 
-Thanks,
 
-Johannes
+**UIKit codebase**
+https://github.com/abdahad1996/EssentialFeed/tree/main
+
+**swiftUI codebase**
+https://github.com/abdahad1996/Img.ly
+
+
+**You can access here all my technical knowledge in iOS**
+https://me.essentialdeveloper.com/achievements/b9adeee4-eee8-4516-97e9-925704d8b752
